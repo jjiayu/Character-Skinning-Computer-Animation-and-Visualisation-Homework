@@ -1,0 +1,42 @@
+# Computer Animation and Visualisation Assessment 1 - Skinning
+
+##Introduction
+Apart from the minimal requirements of this homework which is displaying different animations of the captain by skinning, the program also possesses a simple user interface that users can control the behaviors of this program by keyboard. Moreover, keyframe interpolation is also implemented for walking and running animation. After enabling the keyframe interpolation, it is obvious that the animations becmoe slower and the motions become smoother, which indicates the keyframe interpolation is successful.
+
+
+## Controls
+
+* Click and drag left mouse button on screen to rotate camera
+* Scroll mouse wheel to zoom
+* Escape key to exit
+
+##Simple User Interface
+### Switching between different types of animations
+Press button "w" will demonstrate the animation of walking
+Press button "r" will demonstrate the animation of running
+Press button "s" will demonstrate the animation of standing at the rest pose
+###Control of keyframe interpolation
+Press button "i" will enable the keyframe interpolation. After pressing button "i", users have to input how many frames are going to be interpolated between two consecutive frames in the command line. When the keyframe interpolation is enabled, pressing one more time button "i" will disable the keyframe interpolation.
+###Visualising the skeleton
+Button "v" is the switch of visualising the skeleton, pressing one time will show the skeleton and one more time will close the skeleton
+
+
+##Discription of Source Codes
+
+###Control Flow
+The control flow of this program is simple. In the program, there are multiple global variables that control the behaviors of the program. Some of them are altered by the keys and some of them controls the frame number. Once running the program, the golbal variables will be initialised. Afterwards, the program steps into a loop that checks if some keys are pressed, displays the captain as in an user specified manner and lastly updates the frame number for the next loop. 
+
+###Skinning by Linear Blending
+Skinning is an important step for displaying the captain. The program implements the skinning by linear blending as following descibes. Initially, the program loads the vertices for the rest pose. Since each vertex is associated with three joints, thus, in a new pose, the program maps each vertex to three different positions in the global frame which are contributed by the three associated joints. Lastly, by summing these three vertices with their corresponding weights, the final position of a vertex is obtained. After performing the process above for all vertices and displaying the mesh, the skinning of a new pose will can be achieved.
+
+###keyframe Interpolation
+The keyframe interpolation is implemented by interploating skeletons between two consecutive frames, and then applying the skinning process to render the captain. More specifically, in order to build the interpolated skeletons, the position vectors and rotation matrice of the joints should be interpolated. By applying linear interpolation into position vectors, the position of each joint in interpolated frames can be obtained. However, applying linear interpolation in rotation matrice is incorrect since the relationship between rotation angles and rotation matrice is non-linear. Thus, the program has to firstly convert the rotation matrice into euler angles. Afterwards, by applying linear interpolation to these euler anlges of each joint and then convert these euler angles into rotation matrice, the interpolated skeletons will be built. As long as the skeletons of interplated frames are achieved, the skinning process can start rendering the captain and thus the keyframe interpolation is implemented.
+
+
+## Compilation
+
+Run "make"
+
+## Running
+
+Run ./skinning
